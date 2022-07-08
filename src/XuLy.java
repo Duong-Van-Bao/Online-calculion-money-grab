@@ -30,6 +30,7 @@ public class XuLy {
         int thoiGianCho = nhapThoiGianCho(scan);
         float tienTra = tinhTienTra(loaiGrap, soKM, thoiGianCho);
         System.out.println("Tiền trả: " + tienTra);
+        inChiTiet(loaiGrap, soKM, thoiGianCho);
 	}
 	
 	
@@ -120,5 +121,82 @@ public class XuLy {
 			 tienTra = tinhTienKMTren19(soKM, loaiGrap) + tinhTienCho(loaiGrap, thoiGianCho);
 		 }
 		 return tienTra;
+	}
+	
+	public static void inDongKm1(int loaiGrab, float soKM) {
+		int donGia;
+		if(loaiGrab == 1) {
+			donGia = GRAP_CAR_1KM;
+		} else if(loaiGrab == 1) {
+			donGia = GRAP_SUV_1KM;
+		} else {
+			donGia = GRAP_BLACK_1KM;
+		}
+		float tien = tinhTienKMDauTien(loaiGrab);
+		if(soKM < 1) {
+			System.out.println("KM ĐẦU TIÊN \t\t" + soKM +"\t\t" + donGia + "\t\t\t" + donGia);
+		} else {
+			System.out.println("KM ĐẦU TIÊN \t\t" + 1 +"\t\t" + donGia + "\t\t\t" + donGia);
+		}
+	}
+	
+	public static void inDongKm1Den19(int loaiGrab, float soKM) {
+		int donGia;
+		if(loaiGrab == 1) {
+			donGia = GRAP_CAR_1TO_19;
+		} else if(loaiGrab == 1) {
+			donGia = GRAP_SUV_1TO_19;
+		} else {
+			donGia = GRAP_BLACK_1TO_19;
+		}
+		inDongKm1(loaiGrab,soKM);
+		if(soKM < 1) {
+			System.out.println("Từ 2 đến " + (soKM - 1) + "\t\t" + (soKM - 1) + "\t\t" + donGia + "\t\t\t" + donGia*(soKM-1));
+		} else {
+			System.out.println("Từ 2 đến " + 18 + "\t\t" + 18 + "\t\t" + donGia + "\t\t\t" + donGia*18);
+		}
+	}
+	
+	public static void inDongKmTren19(int loaiGrab, float soKM) {
+		int donGia;
+		if(loaiGrab == 1) {
+			donGia = GRAP_CAR_UPPER_19;
+		} else if(loaiGrab == 1) {
+			donGia = GRAP_SUV_UPPER_19;
+		} else {
+			donGia = GRAP_BLACK_UPPER_19;
+		}
+		inDongKm1(loaiGrab, soKM);
+		System.out.println("Từ 19 đến " + soKM + "\t\t" + (soKM - 19) + "\t\t" + donGia + "\t\t\t" + donGia*(soKM - 19));
+	}
+	
+	public static void inThoiGianCho(int loaiGrab, int thoiGianCho) {
+		int donGia;
+		if(loaiGrab == 1) {
+			donGia = GRAP_CAR_WAIT;
+		} else if(loaiGrab == 1) {
+			donGia = GRAP_SUV_WAIT;
+		} else {
+			donGia = GRAP_BLACK_WAIT;
+		}
+		float tienCho = tinhTienCho(loaiGrab, thoiGianCho);
+		System.out.println("Thời gian chờ \t\t " + thoiGianCho + "\t\t" + donGia + "\t\t\t" + tienCho);
+	}
+	
+	
+	public static void inChiTiet(int loaiGrab, float soKM, int thoiGianCho) {
+		System.out.println("***********************************************CHI TIẾT HÓA ĐƠN*****************************************");
+		System.out.println("CHI TIẾT \t\t SỬ DỤNG \t ĐƠN GIÁ (1000đ)\t THÀNH TIỀN (1000Đ)");
+		if(soKM < 1) {
+			inDongKm1(loaiGrab, soKM);
+		} else if(1 < soKM && soKM < 19) {
+			inDongKm1Den19(loaiGrab, soKM);
+		} else {
+			inDongKmTren19(loaiGrab, soKM);
+		}
+		inThoiGianCho(loaiGrab, thoiGianCho);
+		float tongTien = tinhTienTra(loaiGrab, soKM, thoiGianCho);
+		System.out.println("---------------------------------------------------------------------------------------------------------");
+		System.out.println("\t\t\t\t\t\t\t\t TỔNG TIỀN" + tongTien);
 	}
 }
